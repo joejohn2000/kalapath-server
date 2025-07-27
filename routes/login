@@ -15,34 +15,31 @@ router.post("/", async (req, res) => {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      console.log("User not found for email:", email);
+      console.log("[LOGIN] User not found:", email);
       return res.status(401).json({ error: "Invalid email or password" });
     }
-
-    console.log("Input password:", password);
-    console.log("Stored hash:", user.password);
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    console.log("Password valid?", isPasswordValid);
-
     if (!isPasswordValid) {
+      console.log("[LOGIN] Invalid password for:", email);
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Successful login
+    console.log("[LOGIN] Success for:", email);
+
     return res.status(200).json({
       message: "Login successful",
       user: {
         id: user.id,
-        name: user.name,
+        name: user.name ?? null,
         email: user.email,
-        // Do NOT send password or sensitive info
+        role: user.role,
       },
     });
   } catch (err) {
-    console.error("Login error:", err);
-    return res.status(500).json({ error: "Something went wrong" });
+    console.error("[LOGIN] Error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
