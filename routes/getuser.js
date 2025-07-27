@@ -1,5 +1,3 @@
-// pages/api/user.js (or app/api/user/route.js in app router)
-
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/path/to/authOptions"; // your NextAuth options
 import prisma from "@/utils/db";
@@ -20,3 +18,4 @@ export default async function handler(req, res) {
 
   res.json(user);
 }
+module.exports = router;
