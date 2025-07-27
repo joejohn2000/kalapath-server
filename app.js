@@ -23,7 +23,9 @@ app.use(
   })
 );
 app.use(fileUpload());
-
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/images", productImagesRouter);
