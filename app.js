@@ -12,7 +12,6 @@ const orderProductRouter = require("./routes/customer_order_product");
 const wishlistRouter = require("./routes/wishlist");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
-const getuserRouter = require("./routes/user");
 
 var cors = require("cors");
 
@@ -42,7 +41,6 @@ app.use("/api/slugs", slugRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/register", registerRouter);
 app.use("/api/login", loginRouter);
-app.use("/api/getuser", getuserRouter);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
